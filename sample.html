@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./tab.js"></script>
+    <title>Document</title>
+    <style>
+                #container1 div{
+                width : 400px;
+                height: 260px;
+                display: none;
+            }
+            #container2 {
+                margin-top:10px;
+            }
+            #container2 div{
+                width : 400px;
+                height: 260px;
+                display: none;
+            }
+            img {
+                width: 300px;
+                height: 200px
+            }
+    
+    </style>
+</head>
+<body>
+        <div id="container1">
+                <input type="button" value="李易峰<1>">
+                <input type="button" value="杨幂<1>">
+                <input type="button" value="张艺兴<1>">
+                <div><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=116469671,3195530176&fm=27&gp=0.jpg" alt=""></div>
+                <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529728811&di=f00d95dbe5de2daf0966a9fc523635e1&imgtype=jpg&er=1&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fdc54564e9258d109caafba3ed758ccbf6d814de9.jpg" alt=""></div>
+                <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529134040662&di=d18c04734073d43a76371040ea22735d&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201408%2F16%2F20140816211016_zjSB2.jpeg" alt=""></div>
+            </div>
+            <div id="container2">
+                <input type="button" value="张艺兴<2>">
+                <input type="button" value="杨幂<2>">
+                <input type="button" value="李易峰<2>">
+                <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529134040662&di=d18c04734073d43a76371040ea22735d&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201408%2F16%2F20140816211016_zjSB2.jpeg" alt=""></div>
+                <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529728811&di=f00d95dbe5de2daf0966a9fc523635e1&imgtype=jpg&er=1&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fdc54564e9258d109caafba3ed758ccbf6d814de9.jpg" alt=""></div>
+                <div><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=116469671,3195530176&fm=27&gp=0.jpg" alt=""></div>
+            </div>
+        
+    <script>
+        function Tab(containerId,obj){
+            //外部容器
+            this.container = document.getElementById(containerId);
+            //tab按钮
+            this.aInput = this.container.getElementsByTagName('input');
+            //放置对应内容
+            this.aDiv = this.container.getElementsByTagName('div');
+            //切换后当前input背景色
+            this.ChangeTabBgc = obj.ChangeTabBgc;
+            //切换后当前input字体颜色
+            this.ChangeTabColor = obj.ChangeTabColor;
+        }
+
+        Tab.prototype.init = function(){
+            this.DefaultStyle();
+        }
+        Tab.prototype.DefaultStyle = function () {
+            // 设置默认显示
+            this.aInput[0].style.backgroundColor = this.ChangeTabBgc;
+            this.aDiv[0].style.display = 'block';
+            // 缓存实例对象
+            var that = this;
+            // 绑定单击事件
+            for (var i = 0; i < this.aInput.length; i++) {
+                this.aInput[i].index = i;
+                this.aInput[i].onclick = function(){
+                    // 实现样式切换功能
+                    // 这里的this是点击的按钮
+                    that.change(this);
+                }
+            }
+        }
+        //点击事件触发后内部处理
+        Tab.prototype.change = function(obj){
+            //清除所有样式
+            for (var i = 0; i < this.aInput.length; i++) {
+                this.aInput[i].style.color = "";
+                this.aInput[i].style.backgroundColor = '';
+                this.aDiv[i].style.display = 'none';
+            }
+            //当前选中的标签和显示内容设置样式
+            obj.style.backgroundColor = this.ChangeTabBgc;
+            this.aDiv[obj.index].style.display = 'block';
+            obj.style.color = this.ChangeTabColor;
+        }
+        var tab1 = new Tab('container1',{
+            ChangeTabBgc:'yellowgreen',
+            ChangeTabColor:"#fff",
+         });
+        tab1.init();
+        var tab2 = new Tab('container2',{
+                ChangeTabBgc:'purple',
+                ChangeTabColor:"#fff",
+            });
+        tab2.init();
+
+
+    
+    
+    
+    </script>
+
+</body>
+</html>
